@@ -22,8 +22,7 @@
   "dependencies": {
     "j2c": "^0.8.3",
     "lodash.merge": "^3.3.2",
-    "mithril": "^0.2.2-rc.1",
-    "webpack": "^1.12.10"
+    "mithril": "^0.2.2-rc.1"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
@@ -33,6 +32,5 @@
   "bugs": {
     "url": "https://github.com/mithriljs-cn/m_j2c/issues"
   },
-  "homepage": "https://github.com/mithriljs-cn/m_j2c#readme",
-  "devDependencies": {}
+  "homepage": "https://github.com/mithriljs-cn/m_j2c#readme"
 }
