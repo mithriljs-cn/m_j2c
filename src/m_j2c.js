@@ -1,15 +1,9 @@
 var j2c = require('j2c')
 var m = require('mithril')
-var _merge = require('lodash.merge')
+var util = require('./_extend_exclude')
 
 var isBrowser = typeof document==='object' && document && document instanceof Node;
 
-function _exclude(source, dest){
-	_merge(source, dest, function(a,b,key) {
-		if( typeof b!=='object' && b ) return null;
-	});
-	return source;
-}
 // check if the given object is HTML element
 function isElement(o){return (typeof HTMLElement === "object" ? o instanceof HTMLElement :o && typeof o === "object" && o !== null && o.nodeType === 1 && typeof o.nodeName==="string"); }
 
@@ -85,7 +79,7 @@ m_j2c.add = function( name, cssObj ) {
 		styleObj = j2cStore[name] = { cssObj:cssObj, version:0, sheet:j2c.sheet(cssObj) };
 	} else {
 		styleObj = j2cStore[name]
-		_merge( styleObj.cssObj, cssObj )
+		util._extend( styleObj.cssObj, cssObj )
 		styleObj.sheet = j2c.sheet(styleObj.cssObj);
 		styleObj.version++
 	}
@@ -101,7 +95,7 @@ m_j2c.remove = function(name, cssObj) {
 	if(!cssObj){
 		delete j2cStore[name]
 	}else{
-		_exclude(styleObj.cssObj, cssObj);
+		util._exclude(styleObj.cssObj, cssObj, null);
 		styleObj.sheet = j2c.sheet(styleObj.cssObj);
 		styleObj.version++
 	}
