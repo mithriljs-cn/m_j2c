@@ -2,7 +2,7 @@ var j2c = require('j2c')
 var m = require('mithril')
 var _merge = require('lodash.merge')
 
-var isBrowser = typeof document!=='undefined' && isElement(document)
+var isBrowser = typeof document==='object' && document && document instanceof Node;
 
 function _exclude(source, dest){
 	_merge(source, dest, function(a,b,key) {
@@ -46,7 +46,7 @@ var intervdom = function (sheet, vdom){
 			return c
 		}).join(' ')
 	}
-	if(vdom.children) vdom.children.forEach(intervdom)
+	if(vdom.children) vdom.children.forEach(function(v){ intervdom(sheet, v)  } )
 	return vdom
 }
 var applyStyle = function(sheet, vdom){
