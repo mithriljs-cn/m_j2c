@@ -1,0 +1,38 @@
+{
+  "name": "m_j2c",
+  "version": "1.0.0",
+  "description": "Apply j2c style to mithril",
+  "main": "src/m_j2c.js",
+  "scripts": {
+    "webpack": "webpack -w",
+    "make": "browserify src/m_j2c.js -s m_j2c | uglifyjs -c -m -o dist/m_j2c.js",
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mithriljs-cn/m_j2c.git"
+  },
+  "keywords": [
+    "mithril",
+    "j2c",
+    "css"
+  ],
+  "author": "mithriljs_cn",
+  "license": "MIT",
+  "dependencies": {
+    "j2c": "^0.8.3",
+    "lodash.merge": "^3.3.2",
+    "mithril": "^0.2.2-rc.1",
+    "webpack": "^1.12.10"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-jshint": "^0.10.0",
+    "mocha": "^2.1.0"
+  },
+  "bugs": {
+    "url": "https://github.com/mithriljs-cn/m_j2c/issues"
+  },
+  "homepage": "https://github.com/mithriljs-cn/m_j2c#readme",
+  "devDependencies": {}
+}
