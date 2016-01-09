@@ -1,10 +1,11 @@
 {
   "name": "m_j2c",
-  "version": "1.2.1-4",
+  "version": "1.0.1",
   "description": "Apply j2c style to mithril",
   "main": "src/m_j2c.js",
   "scripts": {
     "webpack": "webpack -w",
+    "push": "npm version patch && git push",
     "make": "browserify src/m_j2c.js -s m_j2c | uglifyjs -c -m -o dist/m_j2c.js",
     "test": "grunt jshint &&  mocha"
   },
