@@ -1,6 +1,6 @@
 var j2c = require('j2c')
 var m = require('mithril')
-var util = require('./_extend_exclude')
+var util = require('util_extend_exclude')
 
 var isBrowser = typeof document==='object' && document && document instanceof Node;
 

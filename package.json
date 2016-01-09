@@ -21,13 +21,14 @@
   "license": "MIT",
   "dependencies": {
     "j2c": "^0.8.3",
-    "lodash.merge": "^3.3.2",
-    "mithril": "^0.2.2-rc.1"
+    "mithril": "^0.2.2-rc.1",
+    "util_extend_exclude": "^1.0.0"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-contrib-jshint": "^0.10.0",
-    "mocha": "^2.1.0"
+    "mocha": "^2.1.0",
+    "nightmare": "^1.8.2"
   },
   "bugs": {
     "url": "https://github.com/mithriljs-cn/m_j2c/issues"
