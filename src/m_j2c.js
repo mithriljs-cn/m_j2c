@@ -1,8 +1,24 @@
 var j2c = require('j2c')
-var m = require('mithril')
 var util = require('util_extend_exclude')
+// var m = window.m || require('mithril')
+var m = function(){}	// user should pass m to this module, for optimize file size
+
+var DEFAULT_NS = 'global_j2c'
+var namespace = DEFAULT_NS
+var j2cGlobal = {}
+var j2cStore = {}
+var domClassMap = []
+
+j2cGlobal[namespace] = j2cStore;
 
 var isBrowser = typeof document==='object' && document && document instanceof Node;
+
+function findDom(dom) {
+	for(var i=0, n=domClassMap.length; i<n; i++ ){
+		if(domClassMap[i].dom === dom) return i
+	}
+	return -1
+}
 
 // check if the given object is HTML element
 function isElement(o){return (typeof HTMLElement === "object" ? o instanceof HTMLElement :o && typeof o === "object" && o !== null && o.nodeType === 1 && typeof o.nodeName==="string"); }
@@ -20,18 +36,18 @@ function stylize(element, sheet){
     return element;
 }
 
-function addStyleToHead(styleObj){
+function addStyleToHead(styleObj) {
 	if(!isBrowser) return;
 	if(!styleObj.dom){
 		var el = document.createElement('style')
 		document.head.appendChild(el)
 		styleObj.dom = el
 	}
-	styleObj.dom.setAttribute('data-version', 'head_'+styleObj.version)
+	styleObj.dom.setAttribute('data-ns', namespace + '_' + styleObj.version)
 	stylize(styleObj.dom, styleObj.sheet)
 }
 
-var intervdom = function (sheet, vdom){
+function intervdom (sheet, vdom){
 	if(vdom.attrs&&vdom.attrs.className){
 		vdom.attrs.className = vdom.attrs.className.split(/\s+/).map(function(c){
 			var g = c.match(/global\((.*)\)/);
@@ -43,12 +59,18 @@ var intervdom = function (sheet, vdom){
 	if(vdom.children) vdom.children.forEach(function(v){ intervdom(sheet, v)  } )
 	return vdom
 }
-var applyStyle = function(sheet, vdom){
+function applyStyle (sheet, vdom){
 	if( {}.toString.call(vdom)==="[object Array]" ) return vdom.map( function(v){ return applyStyle(sheet, v) } );
 	return [intervdom(sheet, vdom)]
 }
 
-var j2cStore = {}
+function removeDom (styleObj) {
+	if(!isBrowser) return;
+	var dom = styleObj.dom;
+	dom && dom.parentNode && dom.parentNode.removeChild(dom);
+	delete styleObj.dom
+}
+
 function m_j2c(name, vdom) {
 	// usage: m_j2c() will return all j2cStore
 	if(!name) return j2cStore;
@@ -67,8 +89,45 @@ function m_j2c(name, vdom) {
             }
 		}
 	});
-	styleDom.attrs[ 'data-'+name+'_'+styleObj.version ] = true;
+	styleDom.attrs[ 'data-'+ namespace + '_' + name+'_'+styleObj.version ] = true;
 	return [ styleDom, applyStyle(sheet, vdom) ]
+}
+
+m_j2c.removeNS = function( ns ){
+	if(!ns) return;
+	if(ns===namespace){
+		for(var i in j2cStore){
+			removeDom( j2cStore[i] )
+		}
+		m_j2c.applyClass(null,null,false)
+		namespace = DEFAULT_NS
+		j2cStore = j2cGlobal[namespace]
+		m.redraw()
+	}
+	return delete j2cGlobal[ns]
+}
+m_j2c.getNS = function( ns ){
+	return ns ? j2cGlobal[ns] : namespace
+}
+m_j2c.setNS = function( ns ){
+	if(ns){
+		namespace = ns;
+		for(var i in j2cStore){
+			removeDom( j2cStore[i] )
+		}
+		m_j2c.applyClass(null,null,false)
+		if(!j2cGlobal[namespace]) j2cGlobal[namespace] = j2cStore = {} ;
+		else j2cStore = j2cGlobal[namespace];
+		for(i in j2cStore){
+			m_j2c.add( i, j2cStore[i].cssObj )
+		}
+		m.redraw()
+	}
+	return m_j2c
+}
+m_j2c.setM = function(mithrilGlobal) {
+	if(mithrilGlobal) m = mithrilGlobal;
+	return m_j2c;
 }
 
 m_j2c.add = function( name, cssObj ) {
@@ -102,7 +161,7 @@ m_j2c.remove = function(name, cssObj) {
 	if( isHead ) {
 		cssObj
 		? addStyleToHead(styleObj)
-		: styleObj.dom&&styleObj.dom.parentNode.removeChild(styleObj.dom)
+		: removeDom( styleObj )
 	}
 	else if( styleObj.dom ) m.redraw();
 
@@ -110,6 +169,7 @@ m_j2c.remove = function(name, cssObj) {
 }
 m_j2c.getClass = function (nameRegex){
 	var sheet, list = {}
+	nameRegex = nameRegex||/./
 	for(var i in j2cStore){
 		// tutpoint: string.match(undefined) ?
 		if( (sheet=j2cStore[i].sheet) && i.match(nameRegex) ){
@@ -119,13 +179,31 @@ m_j2c.getClass = function (nameRegex){
 	// console.log(list)
 	return list;
 }
-m_j2c.applyClass = function (target, nameRegex){
+m_j2c.getClassMap = function () {
+	return domClassMap
+}
+m_j2c.applyClass = function (target, nameRegex, isClear){
+	if(! isBrowser) return;
 	var list = m_j2c.getClass(nameRegex)
 	var _addClassToDom = function(dom){
-		var c = dom.className&&dom.className.split(/\s+/)
-	    if(c) dom.className = c.map(function(v){ return list[v]||v }).join(' ')
+		var pos, c = dom.className&&dom.className.split(/\s+/)
+	    if(c) dom.className = c.map(function(v){
+	    	if( isClear===false ) {
+	    		if((pos=findDom(dom))!==-1){
+		    		var old = domClassMap[pos].original
+		    		domClassMap.splice(pos,1)
+		    		return old
+	    		}else{
+	    			return v
+	    		}
+	    	}else{
+		    	var j2cClass = list[v]
+		    	if(j2cClass) domClassMap.push( { dom:dom, original:v } );
+		    	return j2cClass||v
+	    	}
+	    }).join(' ')
 	}
-	if( !isElement(target) ) return;
+	if( !isElement(target) ) target=document.body;
 	_addClassToDom(target)
 	var items = target.getElementsByTagName("*")
 	for (var i = items.length; i--;) {
@@ -133,7 +211,8 @@ m_j2c.applyClass = function (target, nameRegex){
 	}
 }
 
-module.exports = exports = m_j2c;
+
+exports = module.exports = m_j2c;
 
 // Usage:
 // m_j2c.add( '<head abc>', {' body':{font_size:'10px', }} )
