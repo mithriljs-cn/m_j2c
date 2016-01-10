@@ -90,6 +90,8 @@ function m_j2c(name, vdom) {
 		}
 	});
 	styleDom.attrs[ 'data-'+ namespace + '_' + name+'_'+styleObj.version ] = true;
+	// Known Issue: the dom will always re-created when pass to mithril, so we set below to skip next redraw()
+	m.redraw.strategy('none')
 	return [ styleDom, applyStyle(sheet, vdom) ]
 }
 
@@ -219,5 +221,5 @@ exports = module.exports = m_j2c;
 // m_j2c.add( '<head def>', {' body':{color:'red', ' .text':{color:'blue'} }  } )
 
 // m_j2c('body_style', m('.list') )
-// 
+//
 
