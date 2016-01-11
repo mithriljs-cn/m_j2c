@@ -56,7 +56,7 @@ function intervdom (sheet, vdom){
 			return c
 		}).join(' ')
 	}
-	if(vdom.children) vdom.children.forEach(function(v){ intervdom(sheet, v)  } )
+	if(vdom.children) vdom.children.forEach(function(v){ applyStyle(sheet, v)  } )
 	return vdom
 }
 function applyStyle (sheet, vdom){
@@ -95,6 +95,8 @@ function m_j2c(name, vdom) {
 	return [ styleDom, applyStyle(sheet, vdom) ]
 }
 
+m_j2c.m = m;
+m_j2c.j2c = j2c;
 m_j2c.removeNS = function( ns ){
 	if(!ns) return;
 	if(ns===namespace){
