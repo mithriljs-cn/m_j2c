@@ -1,6 +1,6 @@
 {
   "name": "m_j2c",
-  "version": "1.0.6",
+  "version": "1.0.2",
   "description": "Apply j2c style to mithril",
   "main": "src/m_j2c.js",
   "scripts": {
