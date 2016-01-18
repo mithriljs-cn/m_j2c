@@ -1,6 +1,6 @@
 {
   "name": "m_j2c",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Apply j2c style to mithril",
   "main": "dist/m_j2c_commonjs.js",
   "jsnext:main": "dist/m_j2c_es6.js",
