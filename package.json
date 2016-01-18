@@ -2,10 +2,12 @@
   "name": "m_j2c",
   "version": "1.0.2",
   "description": "Apply j2c style to mithril",
-  "main": "src/m_j2c.js",
+  "main": "dist/m_j2c_commonjs.js",
+  "jsnext:main": "dist/m_j2c_es6.js",
   "scripts": {
     "webpack": "webpack -w",
-    "make": "browserify src/m_j2c.js -s m_j2c | uglifyjs -c -m -o dist/m_j2c.js",
+    "make": "browserify dist/m_j2c_commonjs.js -s m_j2c | uglifyjs -c -m -o dist/m_j2c.js",
+    "build": "node build.js",
     "test": "grunt jshint &&  mocha"
   },
   "repository": {
@@ -20,15 +22,15 @@
   "author": "mithriljs_cn",
   "license": "MIT",
   "dependencies": {
-    "j2c": "^0.8.3",
-    "mithril": "^0.2.2-rc.1",
+    "j2c": "^0.11.0",
     "util_extend_exclude": "^1.0.0"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-contrib-jshint": "^0.10.0",
     "mocha": "^2.1.0",
-    "nightmare": "^1.8.2"
+    "rollup": "^0.25.0",
+    "uglify-js": "^2.6.1"
   },
   "bugs": {
     "url": "https://github.com/mithriljs-cn/m_j2c/issues"

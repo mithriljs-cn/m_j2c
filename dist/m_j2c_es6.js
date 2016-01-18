@@ -1,10 +1,13 @@
-import j2c from 'j2c'
-import util from 'util_extend_exclude'
+import j2c from 'j2c';
+import util from 'util_extend_exclude';
+
 // import m from 'mithril'
 // have to manually set m ref when required
 var m= typeof window!='undefined'&&window.m||null
 
-var OBJECT = "[object Object]", ARRAY = "[object Array]", STRING = "[object String]", REGEXP="[object RegExp]";
+var OBJECT = "[object Object]";
+var ARRAY = "[object Array]";
+var REGEXP="[object RegExp]";
 var type = {}.toString;
 
 var j2cGlobal = {}
@@ -20,7 +23,6 @@ var isBrowser = typeof document==='object' && document && document instanceof No
 
 // check if the given object is HTML element
 function isElement(o){return (typeof HTMLElement == "object" ? o instanceof HTMLElement :o && typeof o === "object" && o !== null && o.nodeType === 1 && typeof o.nodeName==="string"); }
-function isComponent(o){return typeof o=='object'&&o&&typeof o.view=='function' }
 function stylize(element, sheet){
 	if(!isBrowser) return;
     element.type = 'text/css';
@@ -279,7 +281,7 @@ m_j2c.applyClass = function (ns, name, target){
 	return domRange
 }
 
-export default m_j2c
+var m_j2c$1 = m_j2c
 
 // exports = module.exports = m_j2c;
 
@@ -290,3 +292,4 @@ export default m_j2c
 // m_j2c('body_style', m('.list') )
 //
 
+export default m_j2c$1;

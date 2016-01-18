@@ -23,24 +23,23 @@ m_j2c( obj, document.querySelector('#some_ul') )	//apply j2c style to #some_ul
 
 This will do 3 things in order:
 
-**1. insert `style` tag into `header`, which contains css:**
+1. insert `style` tag into `header`, which contains css:
 ````CSS
 .item_j2c_qh10fm_1imf8sp_8nqwug_810slq_6 li{
 float:left;
 }
 ````
 
-**2. cache the generated style name && dom ref**
-
-**3. replace all `.item` class into `.item_j2c_qh10fm_1imf8sp_8nqwug_810slq_6` in `#some_ul` and it's children**
+2. `#some_ul` and it's children, change `.item` class into `.item_j2c_qh10fm_1imf8sp_8nqwug_810slq_6`
+3. cache the generated style name && dom ref
 
 
 
 ## Benefit
 
 - **no css name conflict**, all class is localized! ( powered by [j2c](https://github.com/j2css/j2c) )
-- apply **js computation to CSS**!
-- add css **namespaces** to a page/dom, switch using a js call
+- **js object computation to CSS**!
+- add css **namespaces** to a page/dom, a js function call to switch
 
 
 
