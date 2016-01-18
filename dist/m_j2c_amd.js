@@ -250,6 +250,7 @@ define('m_j2c', ['j2c', 'util_extend_exclude'], function (j2c, util) { 'use stri
 		return domClassMap
 	}
 	m_j2c.revertClass = function (target, ns, name) {
+		if(! isBrowser) return;
 		var domRange=[]
 		if( !target||!isElement(target) )target=document.body;
 		if(ns==='') ns=m_j2c.DEFAULT_NS;

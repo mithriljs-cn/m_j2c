@@ -2,7 +2,7 @@
 
 Apply j2c style into DOM & virtual DOM(default support mithril)
 
-[Demo](http://jsbin.com/vogibuw/3/edit?html,output)
+[Demo](http://jsbin.com/vogibuw/5/edit?html,output)
 
 ## Installation
 
@@ -13,7 +13,6 @@ $ npm install m_j2c
 use in browser (can also be used in node)
 
 ```JavaScript
-var j2c = require('j2c')
 var m_j2c = require('m_j2c')
 ```
 

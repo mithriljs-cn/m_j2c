@@ -254,6 +254,7 @@
 		return domClassMap
 	}
 	m_j2c.revertClass = function (target, ns, name) {
+		if(! isBrowser) return;
 		var domRange=[]
 		if( !target||!isElement(target) )target=document.body;
 		if(ns==='') ns=m_j2c.DEFAULT_NS;
