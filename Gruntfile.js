@@ -6,6 +6,7 @@ module.exports = function(grunt) {
                 asi: true,
                 laxbreak:true,
                 // es3: true,
+		esnext: true,
                 unused: false,
                 curly: false,
                 eqeqeq: false,

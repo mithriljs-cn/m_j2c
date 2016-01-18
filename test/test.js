@@ -1,5 +1,5 @@
 var assert = require('assert')
-var m_j2c = require('../src/m_j2c')
+var m_j2c = require('../dist/m_j2c.js')
 
 describe('### Add new j2c object with name', function () {
 
