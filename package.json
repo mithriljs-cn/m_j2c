@@ -1,12 +1,12 @@
 {
   "name": "m_j2c",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Apply j2c style to mithril",
   "main": "dist/m_j2c_commonjs.js",
   "jsnext:main": "dist/m_j2c_es6.js",
   "scripts": {
     "webpack": "webpack -w",
-    "make": "browserify dist/m_j2c_commonjs.js -s m_j2c | uglifyjs -c -m -o dist/m_j2c.js",
+    "make": "node build.js && browserify dist/m_j2c_commonjs.js -s m_j2c -o dist/m_j2c.js && uglifyjs dist/m_j2c.js -c -m -o dist/m_j2c.min.js",
     "build": "node build.js",
     "preversion": "npm test",
     "version": "npm run build && npm run make && git add -A",

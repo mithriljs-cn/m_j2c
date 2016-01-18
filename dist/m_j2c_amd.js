@@ -156,7 +156,7 @@ define('m_j2c', ['j2c', 'util_extend_exclude'], function (j2c, util) { 'use stri
 		else if(!cssObj)return j2cGlobal[ns]&&j2cGlobal[ns][name];
 
 		var j2cStore = j2cGlobal[ns]
-		if(!j2cStore) j2cGlobal[ns]={};
+		if(!j2cStore) j2cGlobal[ns]=j2cStore={};
 		// revert all class for ns/name
 		var changeList=[]
 		domClassMap.forEach( function(v){_addClassToDom(v.dom,changeList,ns,name,false)} )

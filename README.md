@@ -2,6 +2,8 @@
 
 Apply j2c style into DOM & virtual DOM(default support mithril)
 
+[Demo](http://jsbin.com/vogibuw/3/edit?html,output)
+
 ## Installation
 
 ```Bash
@@ -11,6 +13,7 @@ $ npm install m_j2c
 use in browser (can also be used in node)
 
 ```JavaScript
+var j2c = require('j2c')
 var m_j2c = require('m_j2c')
 ```
 
@@ -111,7 +114,7 @@ m_j2c.add('navbar', { '.item':{color:'navy', float:'left'} } )  // will trigger 
 - *string* internal var store, initial value is 'default', you can change directly, when first used
 
 #### m_j2c.j2c
-- *function* j2c reference, so you don't need `require('j2c')`. Mostly, you can use m_j2c to manager your j2c
+- *function* j2c reference. Mostly, you can use m_j2c to manager your j2c
 
 
 

@@ -1,1 +1,743 @@
-!function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var t;t="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof self?self:this,t.m_j2c=e()}}(function(){return function e(t,n,r){function o(i,l){if(!n[i]){if(!t[i]){var s="function"==typeof require&&require;if(!l&&s)return s(i,!0);if(a)return a(i,!0);var u=new Error("Cannot find module '"+i+"'");throw u.code="MODULE_NOT_FOUND",u}var f=n[i]={exports:{}};t[i][0].call(f.exports,function(e){var n=t[i][1][e];return o(n?n:e)},f,f.exports,e,t,n,r)}return n[i].exports}for(var a="function"==typeof require&&require,i=0;i<r.length;i++)o(r[i]);return o}({1:[function(e,t,n){"use strict";function r(e){return"object"==typeof HTMLElement?e instanceof HTMLElement:e&&"object"==typeof e&&null!==e&&1===e.nodeType&&"string"==typeof e.nodeName}function o(e,t){if(y){if(e.type="text/css",e.styleSheet)e.styleSheet.cssText=t;else{for(;e.firstChild;)e.removeChild(e.firstChild);e.appendChild(document.createTextNode(t))}return e}}function a(e,t,n){if(y){n=n||"";var r="style_"+t+"_"+n+"_"+e.version;if(!document.getElementById(r)){if(!e.dom){var a=document.createElement("style");document.head.appendChild(a),e.dom=a}e.dom.setAttribute("id",r.replace(/\"/g,"&quot;").replace(/\'/g,"&apos;")),o(e.dom,e.sheet)}}}function i(e,t){return t.attrs&&t.attrs.className&&(t.attrs.className=t.attrs.className.split(/\s+/).map(function(t){var n=t.match(/global\((.*)\)/);return n?n.pop():e[t]?e[t]:t}).join(" ")),g.call(t.children)===h&&t.children.forEach(function(t){l(e,t)}),t}function l(e,t){return g.call(t)===h?t.map(function(t){return l(e,t)}):g.call(t)!==p?t:i(e,t)}function s(e){if(y){var t=e.dom;t&&t.parentNode&&t.parentNode.removeChild(t),delete e.dom}}function u(e,t,n){var o=arguments;if(0===o.length)return v;if(1===o.length){if("function"==typeof e&&e.prop)return d=e,u;t=e,e=w}if("object"==typeof o[1]&&(n=t,t=e,e=w),e=e||u.DEFAULT_NS,!t)return v[e];if(!n)return v[e]&&v[e][t];if(g.call(t)==p){var a="temp_"+Date.now()+Math.random();u.add(e,a,t),t=a}if(r(n))return u.applyClass(e,t,n);var i=v[e][t];if(!i||!i.sheet)return l({},n);var s=l(i.sheet,n);return s}var f=e("j2c");f="default"in f?f["default"]:f;var c=e("util_extend_exclude");c="default"in c?c["default"]:c;var d="undefined"!=typeof window&&window.m||null,p="[object Object]",h="[object Array]",m="[object RegExp]",g={}.toString,v={},b=[];u.DEFAULT_NS="default",u.j2c=f;var w=u.DEFAULT_NS;v[u.DEFAULT_NS]={};var y="object"==typeof document&&document&&document instanceof Node;u.removeNS=function(e){if(e&&e!==u.DEFAULT_NS){if(e===w){var t=v[e];for(var n in t)s(t[n]);u.revertClass(),w=u.DEFAULT_NS,d&&d.redraw()}return delete v[e],u}},u.getNS=function(e){return e?v[e]:w},u.setNS=function(e){var t=v[w];e=e||u.DEFAULT_NS,w=e;for(var n in t)s(t[n]);u.revertClass(),v[w]?t=v[w]:v[w]=t={};for(n in t)u.add(n,t[n].cssObj);return d&&d.redraw(),u},u.add=function(e,t,n){var r=arguments;if(0===r.length)return v[w];if(1===r.length&&(t=e,e=w),"object"==typeof r[1]&&(n=t,t=e,e=w),e=e||u.DEFAULT_NS,!t)return v[e];if(!n)return v[e]&&v[e][t];var o=v[e];o||(v[e]={});var i=[];b.forEach(function(n){j(n.dom,i,e,t,!1)});var l;return o[t]?(l=o[t],c._extend(l.cssObj,n),l.sheet=f.sheet(l.cssObj),l.version++):l=o[t]={cssObj:n,version:0,sheet:f.sheet(n)},a(l,e,t),d&&d.redraw(),i.forEach(function(n){j(n.dom,[],e,t,!0)}),o[t]},u.remove=function(e,t,n){var r=arguments;if(0===r.length)return v[w];1===r.length&&(t=e,e=w),"object"==typeof r[1]&&(n=t,t=e,e=w),e=e||u.DEFAULT_NS;var o=v[e];if(t&&o&&o[t]){var i=[];b.forEach(function(n){j(n.dom,i,e,t,!1)});var l=o[t];return n?(c._exclude(l.cssObj,n,null),l.sheet=f.sheet(l.cssObj),l.version++,a(l,e,t),i.forEach(function(n){j(n.dom,[],e,t,!0)})):(delete o[t],s(l)),d&&d.redraw(),l}},u.getClass=function(e,t){var n=arguments;if(0===n.length)return v[w];1===n.length&&(t=e,e=w),e=e||u.DEFAULT_NS;var r,o={},a=v[e];if(a&&t){for(var i in a)if((r=a[i].sheet)&&(g.call(t)==m?i.match(t):i==t))for(var l in r)r.hasOwnProperty(l)&&!l.match(/^\d/)&&(o[l]=r[l]);return o}};var j=function(e,t,n,r,o){var a=e.className&&e.className.split(/\s+/);a&&(e.className=a.map(function(a){if(o===!1){for(var i=b.length;i--;){var l=b[i];if(n=n||l.ns,r=r||l.name,l.ns==n&&l.name==r&&l.dom===e&&l.j2c==a)return t&&t.push(l),l.original}return a}var s=u.getClass(n,r);if(s){var f=s[a];if(f){var c={ns:n,name:r,dom:e,original:a,j2c:f};t&&t.push(c),b.push(c)}return f||a}}).join(" "))};u.domClassMap=function(){return b},u.revertClass=function(e,t,n){var o=[];e&&r(e)||(e=document.body),""===t&&(t=u.DEFAULT_NS),t=t||w,j(e,o,t,n,!1);for(var a=e.getElementsByTagName("*"),i=a.length;i--;)j(a[i],o,t,n,!1);return o},u.applyClass=function(e,t,n){if(y){var o=arguments;if("object"==typeof o[1]&&(n=t,t=e,e=w),void 0===t&&(t=e,e=w),n&&r(n)||(n=document.body),e=e||u.DEFAULT_NS,g.call(t)==p){var a="temp_"+Date.now()+Math.random();u.add(e,a,t),t=a}var i=[];j(n,i,e,t);for(var l=n.getElementsByTagName("*"),s=l.length;s--;)j(l[s],i,e,t);return i}};var _=u;t.exports=_},{j2c:2,util_extend_exclude:3}],2:[function(e,t,n){"use strict";function r(e,t,n,r,a,i){r=[];for(i in t)if(h.call(t,i))for(a in e)h.call(e,a)&&r.push(o(e[a],t[i],n));return r}function o(e,t,n){return n&&(/^[-\w$]+$/.test(t)&&":-error-bad-sub-selector-"+t||/&/.test(t)&&t.replace(/&/g,e))||e+t}function a(e){return"-"+e.toLowerCase()}function i(e,t,n,r,o,l,s,u,f){if(null!=e)if(/\$/.test(n))for(f in n=n.split("$"))h.call(n,f)&&i(e,t,n[f],r,o,l);else switch(p.call(e=e.valueOf())){case g:for(s=0;s<e.length;s++)i(e[s],t,n,r,o,l);break;case m:n=n&&n+"-";for(s in e)if(h.call(e,s))if(u=e[s],/\$/.test(s))for(f in s=s.split("$"))h.call(s,f)&&i(u,t,n+s[f],r,o,l);else i(u,t,n+s,r,o,l);break;default:for(s=n.replace(/_/g,"-").replace(/[A-Z]/g,a),!o||"animation-name"!=s&&"animation"!=s||(e=e.split(",").map(function(e){return e.replace(/()(?::global\(\s*([-\w]+)\s*\)|()([-\w]+))/,l.l)}).join(",")),/^animation|^transition/.test(s)&&(r=["webkit"]),s=s.replace(/^@/,"*"),f=0;f<r.length;f++)t.push("-",r[f],"-",s,s?":":"",e,";\n");t.push(s,s?":":"",e,";\n")}}function l(e,t,n,r,o,a,i,l){var u;if(/^@(?:namespace|import|charset)$/.test(e))if(p.call(t)==g)for(u=0;u<t.length;u++)n.push(e," ",t[u],";\n");else n.push(e," ",t,";\n");else if(/^@keyframes /.test(e))e=i?e.replace(/( )(?::global\(\s*([-\w]+)\s*\)|()([-\w]+))/,l.l):e,n.push("@-webkit-",e.slice(1)," {\n"),s(t,n,"","",["webkit"]),n.push("}\n"),n.push(e," {\n"),s(t,n,"","",a,i,l),n.push("}\n");else if(/^@extends?$/.test(e)){for(;u=b.exec(o);)e=u[4];if(null==e||!i)return void n.push("@-error-cannot-extend-in-global-context ",JSON.stringify(o),";\n");if(/^@extends?$/.test(e))return void n.push("@-error-no-class-to-extend-in ",JSON.stringify(o),";\n");l.e(p.call(t)==g?t.map(function(e){return e.replace(/()(?::global\(\s*(\.[-\w]+)\s*\)|()\.([-\w]+))/,l.l)}).join(" "):t.replace(/()(?::global\(\s*(\.[-\w]+)\s*\)|()\.([-\w]+))/,l.l),e)}else/^@(?:font-face$|viewport$|page )/.test(e)?s(t,n,e,e,d):/^@global$/.test(e)?s(t,n,r,o,a,0,l):/^@local$/.test(e)?s(t,n,r,o,a,1,l):/^@(?:media |supports |document )./.test(e)?(n.push(e," {\n"),s(t,n,r,o,a,i,l),n.push("}\n")):n.push("@-error-unsupported-at-rule ",JSON.stringify(e),";\n")}function s(e,t,n,a,u,f,c){var d,h,b,w;switch(p.call(e)){case g:for(d=0;d<e.length;d++)s(e[d],t,n,a,u,f,c);break;case m:for(d in e)b=e[d],n&&/^[-\w$]+$/.test(d)?(w||(w=1,t.push(n||"*"," {\n")),i(b,t,d,u,f,c)):/^@/.test(d)?(w=w&&t.push("}\n")&&0,l(d,b,t,n,a,u,f,c)):(w=w&&t.push("}\n")&&0,s(b,t,(h=/,/.test(n)||n&&/,/.test(d))?r(n.split(","),(f?d.replace(/()(?::global\(\s*(\.[-\w]+)\s*\)|(\.)([-\w]+))/g,c.l):d).split(","),n).join(","):o(n,f?d.replace(/()(?::global\(\s*(\.[-\w]+)\s*\)|(\.)([-\w]+))/g,c.l):d,n),h?r(a.split(","),d.split(","),a).join(","):o(a,d,a),u,f,c));w&&t.push("}\n");break;case v:t.push(n||":-error-no-selector"," {\n"),i(e,t,"",u,f,c),t.push("}\n")}}function u(e){function t(e,t){for(t=0;t<n.length;t++)e=n[t](e)||e;return e.join("")}e=e||{};var n=[];return e.use=function(){for(var t=arguments,r=0;r<t.length;r++)n.push(t[r]);return e},e.sheet=function(e,n){1===arguments.length&&(n=e,e={});var r,o=w+y++,a={},i=[];for(r in e)r-0!=r-0&&h.call(e,r)&&(a[r]=e[r]);s(n,i,"","",d,1,{e:function(e,t){var n=a[t];a[t]=n.slice(0,n.lastIndexOf(" ")+1)+e+" "+n.slice(n.lastIndexOf(" ")+1)},l:function(e,t,n,r,i){return n?t+n:(a[i]||(a[i]=i+o),t+r+a[i].match(/\S+$/))}}),i=new String(t(i));for(r in a)h.call(a,r)&&(i[r]=a[r]);return i},e.inline=function(e,n,r){return 1===arguments.length&&(n=e,e={}),i(n,r=[],"",d,1,{l:function(t,n,r,o,a){return r?n+r:e[a]?n+o+e[a]:a}}),t(r)},e.prefix=function(e,t){return r(t.map(function(e){return"-"+e+"-"}).concat([""]),[e])},e}function f(e,t,n){return n={},n[e]=t,n}var c={},d=[],p=c.toString,h=c.hasOwnProperty,m=p.call(c),g=p.call(d),v=p.call(""),b=/()(?::global\(\s*(\.[-\w]+)\s*\)|(\.)([-\w]+))/g,w="_j2c_"+Math.floor(4294967296*Math.random()).toString(36)+"_"+Math.floor(4294967296*Math.random()).toString(36)+"_"+Math.floor(4294967296*Math.random()).toString(36)+"_"+Math.floor(4294967296*Math.random()).toString(36)+"_",y=0;u.global=function(e){return":global("+e+")"},u.kv=f,u.at=function j(e,t,n){if(arguments.length<3){var r=j.bind.apply(j,[null].concat([].slice.call(arguments,0)));return r.toString=function(){return"@"+e+" "+t},r}return f("@"+e+" "+t,n)},u(u),delete u.use,t.exports=u},{}],3:[function(e,t,n){function r(e,t,n){if(null==e||null==t)return e;for(var o in t)"[object Object]"=={}.toString.call(t[o])?"[object Object]"!={}.toString.call(e[o])?n(e,t,o):e[o]=r(e[o],t[o],n):n(e,t,o);return e}function o(e,t){return r(e,t,function(e,t,n){e[n]=t[n]})}function a(e,t,n){var o=arguments;return r(e,t,function(e,t,r){"object"!=typeof t[r]&&t[r]?3==o.length?e[r]=n:delete e[r]:e[r]=t[r]})}t.exports={_deepIt:r,_extend:o,_exclude:a}},{}]},{},[1])(1)});
+(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.m_j2c = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+'use strict';
+
+var j2c = require('j2c');
+j2c = 'default' in j2c ? j2c['default'] : j2c;
+var util = require('util_extend_exclude');
+util = 'default' in util ? util['default'] : util;
+
+// import m from 'mithril'
+// have to manually set m ref when required
+var m= typeof window!='undefined'&&window.m||null
+
+var OBJECT = "[object Object]";
+var ARRAY = "[object Array]";
+var REGEXP="[object RegExp]";
+var type = {}.toString;
+
+var j2cGlobal = {}
+var domClassMap = []
+
+m_j2c.DEFAULT_NS = 'default';
+m_j2c.j2c = j2c;
+var namespace = m_j2c.DEFAULT_NS
+
+j2cGlobal[m_j2c.DEFAULT_NS] = {};
+
+var isBrowser = typeof document==='object' && document && document instanceof Node;
+
+// check if the given object is HTML element
+function isElement(o){return (typeof HTMLElement == "object" ? o instanceof HTMLElement :o && typeof o === "object" && o !== null && o.nodeType === 1 && typeof o.nodeName==="string"); }
+function stylize(element, sheet){
+	if(!isBrowser) return;
+    element.type = 'text/css';
+    if (element.styleSheet){
+    	element.styleSheet.cssText = sheet;
+    } else {
+    	// empty all style when re-apply new style
+    	while(element.firstChild) element.removeChild(element.firstChild);
+    	element.appendChild(document.createTextNode(sheet));
+    }
+    return element;
+}
+
+function addStyleToHead(styleObj, ns, name) {
+	if(!isBrowser) return;
+	name=name||''
+	var id = 'style_'+ ns + '_' + name + '_' + styleObj.version
+	if( document.getElementById(id) ) return;
+	if(!styleObj.dom){
+		var el = document.createElement('style')
+		document.head.appendChild(el)
+		styleObj.dom = el
+	}
+	styleObj.dom.setAttribute('id', id.replace(/\"/g,'&quot;').replace(/\'/g,'&apos;') )
+	stylize(styleObj.dom, styleObj.sheet)
+}
+
+function intervdom (sheet, vdom){
+	if(vdom.attrs&&vdom.attrs.className){
+		vdom.attrs.className = vdom.attrs.className.split(/\s+/).map(function(c){
+			var g = c.match(/global\((.*)\)/);
+			if(g) return g.pop();
+			if(sheet[c]) return sheet[c];
+			return c
+		}).join(' ')
+	}
+	if( type.call(vdom.children) ===ARRAY ) vdom.children.forEach(function(v){ applyStyle(sheet, v)  } )
+	return vdom
+}
+function applyStyle (sheet, vdom){
+	if( type.call(vdom)===ARRAY ) return vdom.map( function(v){ return applyStyle(sheet, v) } );
+	if( type.call(vdom)!==OBJECT) return vdom
+	return intervdom(sheet, vdom)
+}
+
+function removeDom (styleObj) {
+	if(!isBrowser) return;
+	var dom = styleObj.dom;
+	dom && dom.parentNode && dom.parentNode.removeChild(dom);
+	delete styleObj.dom
+}
+
+function m_j2c(ns, name, vdom) {
+	var args = arguments;
+	if(args.length===0) return j2cGlobal;	//m_j2c()
+	if(args.length===1){
+		//if it's mithril ref
+		if(typeof ns=='function' && ns.prop){	//m_j2c(m)
+			m=ns; return m_j2c;
+		}
+		name=ns, ns=namespace;	//m_j2c('name')-> curNS,name
+	}
+	if(typeof args[1]=='object') vdom=name, name=ns, ns=namespace;	//m_j2c('name', vdom)-> curNS,name(vdom)
+	ns=ns||m_j2c.DEFAULT_NS	//m_j2c('', 'name') -> DEFAULT_NS, name
+
+	if(!name) return j2cGlobal[ns];	//m_j2c('')->curNS  ||  m_j2c('', '')->DEFAULT_NS
+	else if(!vdom) return j2cGlobal[ns]&&j2cGlobal[ns][name];	//m_j2c('name')->curNS,name &&  m_j2c('', 'name')->DEFAULT_NS,name
+
+	if( type.call(name)==OBJECT ){
+		//support {'.item li':{float:left}} as name
+		var tempName='temp_'+Date.now()+Math.random()
+		m_j2c.add(ns, tempName, name)
+		name=tempName
+	}
+	if( isElement(vdom) ) return m_j2c.applyClass(ns, name, vdom);
+	var styleObj = j2cGlobal[ns][name]
+	// usage: m_j2c('name', mithril_v_dom) will add style to vdom and create <style> for it, cache style_dom
+	if( !styleObj || !styleObj.sheet ) return applyStyle({}, vdom);
+	// Known Issue: the dom will always re-created when pass to mithril, so we set below to skip next redraw()
+	// m.redraw.strategy('none')
+	var ret = applyStyle(styleObj.sheet, vdom)
+	// console.log(ret)
+	return  ret
+}
+m_j2c.removeNS = function( ns ){
+	// DEFAULT_NS cannot be removed
+	if(!ns||ns===m_j2c.DEFAULT_NS) return;
+	if(ns===namespace){
+		var j2cStore = j2cGlobal[ns]
+		for(var i in j2cStore){
+			removeDom( j2cStore[i] )
+		}
+		m_j2c.revertClass()
+		namespace = m_j2c.DEFAULT_NS
+		m&&m.redraw()
+	}
+	delete j2cGlobal[ns]
+	return m_j2c
+}
+m_j2c.getNS = function( ns ){
+	return ns ? j2cGlobal[ns] : namespace
+}
+m_j2c.setNS = function( ns ){
+	var j2cStore = j2cGlobal[namespace]
+	ns = ns||m_j2c.DEFAULT_NS
+	namespace = ns;
+	for(var i in j2cStore){
+		removeDom( j2cStore[i] )
+	}
+	m_j2c.revertClass()
+
+	if(!j2cGlobal[namespace]) j2cGlobal[namespace] = j2cStore = {} ;
+	else j2cStore = j2cGlobal[namespace];
+	for(i in j2cStore){
+		m_j2c.add( i, j2cStore[i].cssObj )
+	}
+	m&&m.redraw()
+
+	return m_j2c
+}
+m_j2c.add = function( ns, name, cssObj ) {
+	var args = arguments;
+	if(args.length===0) return j2cGlobal[namespace];
+	if(args.length===1) name=ns, ns=namespace;
+	if(typeof args[1]=='object') cssObj=name, name=ns, ns=namespace;
+	ns=ns||m_j2c.DEFAULT_NS
+
+	if(!name)return j2cGlobal[ns];
+	else if(!cssObj)return j2cGlobal[ns]&&j2cGlobal[ns][name];
+
+	var j2cStore = j2cGlobal[ns]
+	if(!j2cStore) j2cGlobal[ns]=j2cStore={};
+	// revert all class for ns/name
+	var changeList=[]
+	domClassMap.forEach( function(v){_addClassToDom(v.dom,changeList,ns,name,false)} )
+	var styleObj
+	if(!j2cStore[name]){
+		styleObj = j2cStore[name] = { cssObj:cssObj, version:0, sheet:j2c.sheet(cssObj) };
+	} else {
+		styleObj = j2cStore[name]
+		util._extend( styleObj.cssObj, cssObj )
+		styleObj.sheet = j2c.sheet(styleObj.cssObj);
+		styleObj.version++
+	}
+	addStyleToHead(styleObj, ns, name)
+	m&&m.redraw();
+	changeList.forEach( function(v){_addClassToDom(v.dom,[],ns,name,true)} )
+	return j2cStore[name];
+}
+m_j2c.remove = function(ns, name, cssObj) {
+	var args = arguments;
+	if(args.length===0) return j2cGlobal[namespace];
+	if(args.length===1) name=ns, ns=namespace;
+	if(typeof args[1]=='object') cssObj=name, name=ns, ns=namespace;
+	ns=ns||m_j2c.DEFAULT_NS
+
+	var j2cStore = j2cGlobal[ns]
+	if(!name || !j2cStore || !j2cStore[name]) return;
+	// revert all class for ns/name
+	var changeList=[]
+	domClassMap.forEach( function(v){
+		_addClassToDom(v.dom,changeList,ns,name,false)
+	} )
+	var styleObj = j2cStore[name];
+	if(!cssObj){
+		delete j2cStore[name]
+		removeDom( styleObj )
+	}else{
+		util._exclude(styleObj.cssObj, cssObj, null);
+		styleObj.sheet = j2c.sheet(styleObj.cssObj);
+		styleObj.version++
+		addStyleToHead(styleObj, ns, name)
+		changeList.forEach( function(v){_addClassToDom(v.dom,[],ns,name,true)} )
+	}
+	m&&m.redraw();
+	return styleObj
+}
+m_j2c.getClass = function (ns, name) {
+	var args = arguments
+	if(args.length===0) return j2cGlobal[namespace];	//getClass()->curNS
+	if(args.length===1) name=ns, ns=namespace	//getClass('name')->curNS,name
+	ns=ns||m_j2c.DEFAULT_NS	//getClass('', 'name')->DEFAULT_NS,name
+	var sheet, list = {}, store= j2cGlobal[ns]
+	if(!store||!name) return;
+	for(var i in store){
+		// tutpoint: string.match(undefined) ?
+		if( (sheet=store[i].sheet) && ( type.call(name)==REGEXP ? i.match(name) : i==name ) ){
+			for(var key in sheet){ if(sheet.hasOwnProperty(key)&& !key.match(/^\d/) ) list[key]=sheet[key] }
+		}
+	}
+	return list;
+}
+
+var _addClassToDom = function(dom, domRange, ns, name, isAdd) {
+	var pos, c = dom.className&&dom.className.split(/\s+/)
+    if(c) dom.className = c.map(function(v){
+    	if( isAdd===false ) {
+    		for(var i=domClassMap.length;i--;){
+    			var d=domClassMap[i]
+    			ns=ns||d.ns
+    			name=name||d.name
+    			if(d.ns==ns&&d.name==name&&d.dom===dom && d.j2c==v){
+    				domRange&&domRange.push( d )
+    				return d.original
+    			}
+    		}
+    		return v
+    	}else{
+    		var list = m_j2c.getClass(ns, name)
+    		if(!list)return
+	    	var j2cClass = list[v]
+	    	if(j2cClass){
+	    		var obj={ ns:ns, name:name, dom:dom, original:v, j2c:j2cClass }
+	    		domRange&&domRange.push( obj );
+	    		domClassMap.push( obj );
+	    	}
+	    	return j2cClass||v
+    	}
+    }).join(' ')
+}
+
+m_j2c.domClassMap = function (){
+	return domClassMap
+}
+m_j2c.revertClass = function (target, ns, name) {
+	var domRange=[]
+	if( !target||!isElement(target) )target=document.body;
+	if(ns==='') ns=m_j2c.DEFAULT_NS;
+	ns=ns||namespace
+	_addClassToDom(target,domRange,ns,name,false)
+	var items = target.getElementsByTagName("*")
+	for (var i = items.length; i--;) {
+	    _addClassToDom(items[i],domRange,ns,name,false)
+	}
+	return domRange
+}
+m_j2c.applyClass = function (ns, name, target){
+	if(! isBrowser) return;
+	var args = arguments;
+	if(typeof args[1]=='object') target=name, name=ns, ns=namespace;
+	if(name===undefined) name=ns, ns=namespace;
+	if( !target||!isElement(target) )target=document.body;
+	ns=ns||m_j2c.DEFAULT_NS
+	if( type.call(name)==OBJECT ){
+		//support {'.item li':{float:left}} as name
+		var tempName='temp_'+Date.now()+Math.random()
+		m_j2c.add(ns, tempName, name)
+		name=tempName
+	}
+	var domRange=[]
+	_addClassToDom(target, domRange, ns, name)
+	var items = target.getElementsByTagName("*")
+	for (var i = items.length; i--;) {
+	    _addClassToDom(items[i], domRange, ns, name)
+	}
+	return domRange
+}
+
+var m_j2c$1 = m_j2c
+
+// exports = module.exports = m_j2c;
+
+// Usage:
+// m_j2c.add( '<head abc>', {' body':{font_size:'10px', }} )
+// m_j2c.add( '<head def>', {' body':{color:'red', ' .text':{color:'blue'} }  } )
+
+// m_j2c('body_style', m('.list') )
+//
+
+module.exports = m_j2c$1;
+},{"j2c":2,"util_extend_exclude":3}],2:[function(require,module,exports){
+'use strict';
+
+var emptyObject = {};
+var emptyArray = [];
+var type = emptyObject.toString;
+var own =  emptyObject.hasOwnProperty;
+var OBJECT = type.call(emptyObject);
+var ARRAY =  type.call(emptyArray);
+var STRING = type.call('');
+/*/-inline-/*/
+// function cartesian(a, b, res, i, j) {
+//   res = [];
+//   for (j in b) if (own.call(b, j))
+//     for (i in a) if (own.call(a, i))
+//       res.push(a[i] + b[j]);
+//   return res;
+// }
+/*/-inline-/*/
+
+/* /-statements-/*/
+function cartesian(a,b, selectorP, res, i, j) {
+  res = []
+  for (j in b) if(own.call(b, j))
+    for (i in a) if(own.call(a, i))
+      res.push(concat(a[i], b[j], selectorP))
+  return res
+}
+
+function concat(a, b, selectorP) {
+  // `b.replace(/&/g, a)` is never falsy, since the
+  // 'a' of cartesian can't be the empty string
+  // in selector mode.
+  return selectorP && (
+    /^[-\w$]+$/.test(b) && ':-error-bad-sub-selector-' + b ||
+    /&/.test(b) && /* never falsy */ b.replace(/&/g, a)
+  ) || a + b
+}
+
+function decamelize(match) {
+  return '-' + match.toLowerCase()
+}
+
+/**
+ * Handles the property:value; pairs.
+ *
+ * @param {array|object|string} o - the declarations.
+ * @param {string[]} buf - the buffer in which the final style sheet is built.
+ * @param {string} prefix - the current property or a prefix in case of nested
+ *                          sub-properties.
+ * @param {string} vendors - a list of vendor prefixes.
+ * @Param {boolean} local - are we in @local or in @global scope.
+ * @param {object} ns - helper functions to populate or create the @local namespace
+ *                      and to @extend classes.
+ * @param {function} ns.e - @extend helper.
+ * @param {function} ns.l - @local helper.
+ */
+
+function declarations(o, buf, prefix, vendors, local, ns, /*var*/ k, v, kk) {
+  if (o==null) return
+  if (/\$/.test(prefix)) {
+    for (kk in (prefix = prefix.split('$'))) if (own.call(prefix, kk)) {
+      declarations(o, buf, prefix[kk], vendors, local, ns)
+    }
+    return
+  }
+  switch ( type.call(o = o.valueOf()) ) {
+  case ARRAY:
+    for (k = 0; k < o.length; k++)
+      declarations(o[k], buf, prefix, vendors, local, ns)
+    break
+  case OBJECT:
+    // prefix is falsy iif it is the empty string, which means we're at the root
+    // of the declarations list.
+    prefix = (prefix && prefix + '-')
+    for (k in o) if (own.call(o, k)){
+      v = o[k]
+      if (/\$/.test(k)) {
+        for (kk in (k = k.split('$'))) if (own.call(k, kk))
+          declarations(v, buf, prefix + k[kk], vendors, local, ns)
+      } else {
+        declarations(v, buf, prefix + k, vendors, local, ns)
+      }
+    }
+    break
+  default:
+    // prefix is falsy when it is "", which means that we're
+    // at the top level.
+    // `o` is then treated as a `property:value` pair.
+    // otherwise, `prefix` is the property name, and
+    // `o` is the value.
+    k = prefix.replace(/_/g, '-').replace(/[A-Z]/g, decamelize)
+
+    if (local && (k == 'animation-name' || k == 'animation')) {
+      o = o.split(',').map(function (o) {
+        return o.replace(/()(?::global\(\s*([-\w]+)\s*\)|()([-\w]+))/, ns.l)
+      }).join(',')
+    }
+    if (/^animation|^transition/.test(k)) vendors = ['webkit']
+    // '@' in properties also triggers the *ielte7 hack
+    // Since plugins dispatch on the /^@/ for at-rules
+    // we swap the at for an asterisk
+    // http://browserhacks.com/#hack-6d49e92634f26ae6d6e46b3ebc10019a
+
+    k = k.replace(/^@/, '*')
+
+/*/-statements-/*/
+    // vendorify
+    for (kk = 0; kk < vendors.length; kk++)
+      buf.push('-', vendors[kk], '-', k, k ? ':': '', o, ';\n')
+/*/-statements-/*/
+
+    buf.push(k, k ? ':': '', o, ';\n')
+
+  }
+}
+
+var findClass = /()(?::global\(\s*(\.[-\w]+)\s*\)|(\.)([-\w]+))/g
+
+/**
+ * Hanldes at-rules
+ *
+ * @param {string} k - The at-rule name, and, if takes both parameters and a
+ *                     block, the parameters.
+ * @param {string[]} buf - the buffer in which the final style sheet is built
+ * @param {string[]} v - Either parameters for block-less rules or their block
+ *                       for the others.
+ * @param {string} prefix - the current selector or a prefix in case of nested rules
+ * @param {string} rawPrefix - as above, but without localization transformations
+ * @param {string} vendors - a list of vendor prefixes
+ * @Param {boolean} local - are we in @local or in @global scope?
+ * @param {object} ns - helper functions to populate or create the @local namespace
+ *                      and to @extend classes
+ * @param {function} ns.e - @extend helper
+ * @param {function} ns.l - @local helper
+ */
+
+function at(k, v, buf, prefix, rawPrefix, vendors, local, ns){
+  var kk
+  if (/^@(?:namespace|import|charset)$/.test(k)) {
+    if(type.call(v) == ARRAY){
+      for (kk = 0; kk < v.length; kk++) {
+        buf.push(k, ' ', v[kk], ';\n')
+      }
+    } else {
+      buf.push(k, ' ', v, ';\n')
+    }
+  } else if (/^@keyframes /.test(k)) {
+    k = local ? k.replace(
+      // generated by script/regexps.js
+      /( )(?::global\(\s*([-\w]+)\s*\)|()([-\w]+))/,
+      ns.l
+    ) : k
+    // add a @-webkit-keyframes block too.
+
+    buf.push('@-webkit-', k.slice(1), ' {\n')
+    sheet(v, buf, '', '', ['webkit'])
+    buf.push('}\n')
+
+    buf.push(k, ' {\n')
+    sheet(v, buf, '', '', vendors, local, ns)
+    buf.push('}\n')
+
+  } else if (/^@extends?$/.test(k)) {
+
+    /*eslint-disable no-cond-assign*/
+    // pick the last class to be extended
+    while (kk = findClass.exec(rawPrefix)) k = kk[4]
+    /*eslint-enable no-cond-assign*/
+    if (k == null || !local) {
+      // we're in a @global{} block
+      buf.push('@-error-cannot-extend-in-global-context ', JSON.stringify(rawPrefix), ';\n')
+      return
+    } else if (/^@extends?$/.test(k)) {
+      // no class in the selector
+      buf.push('@-error-no-class-to-extend-in ', JSON.stringify(rawPrefix), ';\n')
+      return
+    }
+    ns.e(
+      type.call(v) == ARRAY ? v.map(function (parent) {
+        return parent.replace(/()(?::global\(\s*(\.[-\w]+)\s*\)|()\.([-\w]+))/, ns.l)
+      }).join(' ') : v.replace(/()(?::global\(\s*(\.[-\w]+)\s*\)|()\.([-\w]+))/, ns.l),
+      k
+    )
+
+  } else if (/^@(?:font-face$|viewport$|page )/.test(k)) {
+    sheet(v, buf, k, k, emptyArray)
+
+  } else if (/^@global$/.test(k)) {
+    sheet(v, buf, prefix, rawPrefix, vendors, 0, ns)
+
+  } else if (/^@local$/.test(k)) {
+    sheet(v, buf, prefix, rawPrefix, vendors, 1, ns)
+
+  } else if (/^@(?:media |supports |document )./.test(k)) {
+    buf.push(k, ' {\n')
+    sheet(v, buf, prefix, rawPrefix, vendors, local, ns)
+    buf.push('}\n')
+
+  } else {
+    buf.push('@-error-unsupported-at-rule ', JSON.stringify(k), ';\n')
+  }
+}
+
+/**
+ * Add rulesets and other CSS statements to the sheet.
+ *
+ * @param {array|string|object} statements - a source object or sub-object.
+ * @param {string[]} buf - the buffer in which the final style sheet is built
+ * @param {string} prefix - the current selector or a prefix in case of nested rules
+ * @param {string} rawPrefix - as above, but without localization transformations
+ * @param {string} vendors - a list of vendor prefixes
+ * @Param {boolean} local - are we in @local or in @global scope?
+ * @param {object} ns - helper functions to populate or create the @local namespace
+ *                      and to @extend classes
+ * @param {function} ns.e - @extend helper
+ * @param {function} ns.l - @local helper
+ */
+function sheet(statements, buf, prefix, rawPrefix, vendors, local, ns) {
+  var k, kk, v, inDeclaration
+
+  switch (type.call(statements)) {
+
+  case ARRAY:
+    for (k = 0; k < statements.length; k++)
+      sheet(statements[k], buf, prefix, rawPrefix, vendors, local, ns)
+    break
+
+  case OBJECT:
+    for (k in statements) {
+      v = statements[k]
+      if (prefix && /^[-\w$]+$/.test(k)) {
+        if (!inDeclaration) {
+          inDeclaration = 1
+          buf.push(( prefix || '*' ), ' {\n')
+        }
+        declarations(v, buf, k, vendors, local, ns)
+      } else if (/^@/.test(k)) {
+        // Handle At-rules
+        inDeclaration = (inDeclaration && buf.push('}\n') && 0)
+
+        at(k, v, buf, prefix, rawPrefix, vendors, local, ns)
+
+      } else {
+        // selector or nested sub-selectors
+
+        inDeclaration = (inDeclaration && buf.push('}\n') && 0)
+
+        sheet(v, buf,
+          (kk = /,/.test(prefix) || prefix && /,/.test(k)) ?
+            cartesian(prefix.split(','), ( local ?
+          k.replace(
+            /()(?::global\(\s*(\.[-\w]+)\s*\)|(\.)([-\w]+))/g, ns.l
+          ) : k
+        ).split(','), prefix).join(',') :
+            concat(prefix, ( local ?
+          k.replace(
+            /()(?::global\(\s*(\.[-\w]+)\s*\)|(\.)([-\w]+))/g, ns.l
+          ) : k
+        ), prefix),
+          kk ?
+            cartesian(rawPrefix.split(','), k.split(','), rawPrefix).join(',') :
+            concat(rawPrefix, k, rawPrefix),
+          vendors,
+          local, ns
+        )
+      }
+    }
+    if (inDeclaration) buf.push('}\n')
+    break
+  case STRING:
+    buf.push(
+        ( prefix || ':-error-no-selector' ) , ' {\n'
+      )
+    declarations(statements, buf, '', vendors, local, ns)
+    buf.push('}\n')
+  }
+}
+
+var scope_root = '_j2c_' +
+      Math.floor(Math.random() * 0x100000000).toString(36) + '_' +
+      Math.floor(Math.random() * 0x100000000).toString(36) + '_' +
+      Math.floor(Math.random() * 0x100000000).toString(36) + '_' +
+      Math.floor(Math.random() * 0x100000000).toString(36) + '_';
+var counter = 0;
+function j2c(res) {
+  res = res || {}
+  var extensions = []
+
+  function finalize(buf, i) {
+    for (i = 0; i< extensions.length; i++) buf = extensions[i](buf) || buf
+    return buf.join('')
+  }
+
+  res.use = function() {
+    var args = arguments
+    for (var i = 0; i < args.length; i++){
+      extensions.push(args[i])
+    }
+    return res
+  }
+/*/-statements-/*/
+  res.sheet = function(ns, statements) {
+    if (arguments.length === 1) {
+      statements = ns; ns = {}
+    }
+    var
+      suffix = scope_root + counter++,
+      locals = {},
+      k, buf = []
+    // pick only non-numeric keys since `(NaN != NaN) === true`
+    for (k in ns) if (k-0 != k-0 && own.call(ns, k)) {
+      locals[k] = ns[k]
+    }
+    sheet(
+      statements, buf, '', '', emptyArray /*vendors*/,
+      1, // local
+      {
+        e: function extend(parent, child) {
+          var nameList = locals[child]
+          locals[child] =
+            nameList.slice(0, nameList.lastIndexOf(' ') + 1) +
+            parent + ' ' +
+            nameList.slice(nameList.lastIndexOf(' ') + 1)
+        },
+        l: function localize(match, space, global, dot, name) {
+          if (global) {
+            return space + global
+          }
+          if (!locals[name]) locals[name] = name + suffix
+          return space + dot + locals[name].match(/\S+$/)
+        }
+      }
+    )
+    /*jshint -W053 */
+    buf = new String(finalize(buf))
+    /*jshint +W053 */
+    for (k in locals) if (own.call(locals, k)) buf[k] = locals[k]
+    return buf
+  }
+/*/-statements-/*/
+  res.inline = function (locals, decl, buf) {
+    if (arguments.length === 1) {
+      decl = locals; locals = {}
+    }
+    declarations(
+      decl,
+      buf = [],
+      '', // prefix
+      emptyArray, // vendors
+      1,
+      {
+        l: function localize(match, space, global, dot, name) {
+          if (global) return space + global
+          if (!locals[name]) return name
+          return space + dot + locals[name]
+        }
+      })
+    return finalize(buf)
+  }
+
+  res.prefix = function(val, vendors) {
+    return cartesian(
+      vendors.map(function(p){return '-' + p + '-'}).concat(['']),
+      [val]
+    )
+  }
+  return res
+}
+
+j2c.global = function(x) {
+  return ':global(' + x + ')'
+}
+
+j2c.kv = kv
+function kv (k, v, o) {
+  o = {}
+  o[k] = v
+  return o
+}
+
+j2c.at = function at (rule, params, block) {
+  if (
+    arguments.length < 3
+  ) {
+    var _at = at.bind.apply(at, [null].concat([].slice.call(arguments,0)))
+    _at.toString = function(){return '@' + rule + ' ' + params}
+    return _at
+  }
+  else return kv('@' + rule + ' ' + params, block)
+}
+
+j2c(j2c)
+delete j2c.use
+
+module.exports = j2c;
+},{}],3:[function(require,module,exports){
+
+function _deepIt(a, b, callback) {
+    if (a == null || b == null) {
+        return a;
+    }
+    for( var key in b ) {
+        if ( {}.toString.call(b[key]) == '[object Object]') {
+            if ( {}.toString.call(a[key]) != '[object Object]') {
+                callback(a, b, key)
+            } else {
+                a[key] = _deepIt(a[key], b[key], callback);
+            }
+        } else {
+            callback(a, b, key)
+        }
+    }
+    return a;
+}
+
+function _extend(x,y ){
+    return _deepIt(x,y, function(a,b,key){
+        a[key] = b[key]
+    })
+}
+
+/*Usage: _exlucde(obj, {x:{y:1, z:1} }, [null] ) will delete x.y,x.z on obj, or set to newVal if present */
+// _exclude( {a:1,b:{d:{ c:2} } }, { b:{d:{ c:1} } } )
+function _exclude( x,y, newVal ){
+    var args = arguments
+    return _deepIt(x,y, function(a,b,key){
+        if( typeof b[key]!=='object' && b[key] ){
+            args.length==3 ? a[key]=newVal : delete a[key]
+        } else {
+            a[key] = b[key]
+        }
+    })
+}
+
+module.exports = {
+    _deepIt: _deepIt,
+    _extend: _extend,
+    _exclude: _exclude
+}
+
+},{}]},{},[1])(1)
+});
