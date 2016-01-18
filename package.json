@@ -1,8 +1,8 @@
 {
   "name": "m_j2c",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Apply j2c style to mithril",
-  "main": "dist/m_j2c.js",
+  "main": "dist/m_j2c_commonjs.js",
   "jsnext:main": "dist/m_j2c_es6.js",
   "scripts": {
     "webpack": "webpack -w",
